@@ -1,0 +1,13 @@
+.LandingPage{
+    margin-top: 60px;
+    text-align: center;
+}
+.Logo{
+    width: 40%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.Logo img{
+    width: 100%;
+}

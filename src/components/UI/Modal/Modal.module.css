@@ -1,0 +1,29 @@
+.Modal{
+    position: absolute;
+    top: 50px;
+    width: 40%;
+    left: 30%;
+    background-color: white;
+    border: 1px solid black;
+    padding: 20px;
+    transition: all 0.5s ease-out;
+    z-index: 100;
+}
+.Close{
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.Close:hover{
+    color: rgb(138, 138, 138);
+}
+
+@media(max-width: 900px){
+    .Modal{
+        width: 80%;
+        left: 10%;
+    }
+}

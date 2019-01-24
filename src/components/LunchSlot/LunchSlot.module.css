@@ -1,0 +1,21 @@
+.LunchSlot{
+    text-align: center;
+    margin-top: 50px; 
+    padding-bottom: 20px;     
+}
+.Icon{
+    width: 35%;
+    margin: auto;
+}
+.Icon img{
+    width: 100%;
+}
+.LunchSlot select{
+    width: 80%;
+    padding: 10px;
+    margin-top: 20px;
+}
+.LunchSlot select option{
+    width: 80%;
+    padding: 10px;
+}

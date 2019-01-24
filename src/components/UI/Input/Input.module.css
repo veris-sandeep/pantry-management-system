@@ -1,0 +1,15 @@
+.Input{
+    width: 100%;
+    margin: 5px;
+    box-sizing: border-box;
+}
+
+.Input input{
+    width: 100%;
+    padding: 10px;
+}
+.Error{
+    text-align: right;
+    font-size: 0.8em;
+    padding-top: 5px; 
+}

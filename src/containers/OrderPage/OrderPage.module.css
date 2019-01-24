@@ -1,0 +1,45 @@
+.OrderPage{
+    margin-left: 300px;
+    padding-top: 70px;
+    display: flex;
+    background-color:'#f3f3f3'; 
+    justify-content: space-between;
+}
+
+.Items{
+    width: 70%;
+    margin: 20px 0px;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.Blank{
+    width: 350px;
+}
+@media(max-width: 1200px){
+    .OrderPage{
+        width: 80%;
+        margin: auto;
+    }
+    
+}
+@media(max-width: 850px){
+    .Items{
+        width: 100%;
+        margin: auto;
+    }
+    .Container{
+        max-height: 35vh;
+        overflow: auto
+    }
+    .Blank{
+        display: none;
+    }
+}
+@media(max-width: 545px){
+    .Container{
+        margin-top: -5px;
+        max-height: 32vh;
+        overflow: auto
+    }
+}

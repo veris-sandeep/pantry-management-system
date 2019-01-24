@@ -1,0 +1,43 @@
+.OrderSummary{
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 330px;
+    background-color: white;
+    height: 85vh;
+    text-align: center;
+    padding: 20px;
+}
+.OrderItems{
+    text-align: right;
+    padding: 10px 30px;;
+    margin: auto;
+    border: 1px solid rgb(233, 233, 233);
+    box-sizing: border-box;
+    margin-bottom: 5px;
+    max-height: 70%;
+    overflow: auto;
+}
+.OrderItem{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    line-height: 100%;
+}
+@media(max-width: 850px){
+
+    .OrderSummary{
+        border-top: 2px solid rgb(233, 233, 233);
+        position: fixed;
+        height: 40vh;
+        width: 100%;
+        bottom: 0px;
+        left: 0px;
+        top: 100vh;
+        transform: translateY(-40vh)
+    }
+    .OrderItems{
+         max-height: 40%;
+        overflow: auto;
+    }
+}

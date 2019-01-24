@@ -1,0 +1,20 @@
+.MorningBeverage{
+    text-align: center;
+    margin-top: 50px; 
+    padding-bottom: 20px;     
+}
+.Icon{
+    width: 40%;
+    margin: auto;
+}
+.Icon img{
+    width: 100%;
+}
+.MorningBeverage select{
+    width: 80%;
+    padding: 10px;
+}
+.MorningBeverage select option{
+    width: 80%;
+    padding: 10px;
+}

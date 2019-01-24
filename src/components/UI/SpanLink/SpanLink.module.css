@@ -1,0 +1,8 @@
+.SpanLink{
+    font-weight: bold;
+    cursor: pointer
+}
+
+.SpanLink:hover{
+    color: rgb(15, 15, 15)
+}
