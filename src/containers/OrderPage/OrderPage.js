@@ -6,7 +6,27 @@ import OrderSummary from '../../components/OrderSummary/OrderSummary'
 
 class OrderPage extends Component{
     state={
-        inventory:[{id:1,name:'Sandwich'},{id:2,name:'Peanuts'},{id:1,name:'Sandwich'},{id:2,name:'Peanuts'},{id:1,name:'Sandwich'},{id:2,name:'Peanuts'},{id:1,name:'Sandwich'},{id:2,name:'Peanuts'},{id:1,name:'Sandwich'},{id:2,name:'Peanuts'},{id:1,name:'Sandwich'},{id:2,name:'Peanuts'}]
+        inventory:[{id:1,name:'Sandwich'},{id:2,name:'Peanuts'},{id:1,name:'Sandwich'},{id:2,name:'Peanuts'},{id:1,name:'Sandwich'},{id:2,name:'Peanuts'},{id:1,name:'Sandwich'},{id:2,name:'Peanuts'},{id:1,name:'Sandwich'},{id:2,name:'Peanuts'},{id:1,name:'Sandwich'},{id:2,name:'Peanuts'}],
+        orderItems: []
+    }
+    addItemHandler=(id)=>{
+        let updatedState = {...this.state}
+        let orderItem
+        for(let i in updatedState.inventory){
+            if(updatedState.inventory[i].id===id){
+                orderItem=updatedState.inventory[i]
+            }
+        }
+        updatedState.orderItems.push(orderItem);
+        this.setState({orderItems: updatedState.orderItems})
+    }
+    removeItemHandler=(id)=>{
+        let updatedState = {...this.state}
+        const orderItems = updatedState.orderItems.filter(item=>{
+            return item.id!==id
+        })
+        updatedState.orderItems=orderItems;
+        this.setState({orderItems: updatedState.orderItems})
     }
     render(){
         return(
@@ -16,7 +36,7 @@ class OrderPage extends Component{
                         <h3>Inventory</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                         <div className={classes.Container}>
-                            <Items items={this.state.inventory} />
+                            <Items items={this.state.inventory} add={this.addItemHandler}/>
                         </div>
                         
                     </div>
@@ -24,7 +44,7 @@ class OrderPage extends Component{
                         
                     </div>
                 </div>
-                <OrderSummary />
+                <OrderSummary orderItems={this.state.orderItems} remove={this.removeItemHandler}/>
             </Layout>
         )
     }

@@ -6,7 +6,7 @@ const items=(props)=>{
         <div className={classes.Item}>
             <div>{props.children}</div>
             <div>
-                <button className="btn btn-success">Add</button>
+                <button onClick={props.add} className="btn btn-success">Add</button>
             </div>
         </div>
     )

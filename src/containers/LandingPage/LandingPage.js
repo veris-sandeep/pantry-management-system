@@ -5,6 +5,8 @@ import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
 import SpanLink from '../../components/UI/SpanLink/SpanLink'
 import Signup from '../../components/Signup/Signup'
+import axios from 'axios'
+import Alert from '../../components/UI/Alert/Alert'
 import {withRouter} from 'react-router-dom'
 
 class LandingPage extends Component{
@@ -63,7 +65,8 @@ class LandingPage extends Component{
                 value:''
             }
         },
-        signupButtonDisabled: true
+        signupButtonDisabled: true,
+        signupError: false
     }
     loginValidityHandler=(id, event)=>{
         const value = event.target.value;
@@ -156,7 +159,7 @@ class LandingPage extends Component{
         signupField.error=signupFieldError;
         signupField.value=value;
         signupFields[id]=signupField;
-        this.setState({signupFields:signupFields}) 
+        this.setState({signupFields:signupFields,signupError:false}) 
         this.enableSignupButtonHandler(signupFields)
     }
     enableSignupButtonHandler(state){
@@ -176,6 +179,27 @@ class LandingPage extends Component{
     hideSignupModalHandler=()=>{
         this.setState({showSignupModal: false})
     }
+    signupHandler=(event)=>{
+        event.preventDefault()
+        const data = {
+            email: this.state.signupFields.email.value,
+            password: this.state.signupFields.password.value,
+            name: this.state.signupFields.name.value
+        }
+        axios.post("https://6xiyxvrwqg.execute-api.us-east-1.amazonaws.com/join",data)
+        .then(res=>{
+            this.setState({signupError: false},()=>{
+                this.props.history.replace('/home')
+            })
+        })
+        .catch(err=>{
+            let error="Something went wrong"
+            if(err.response.status==409){
+                error="User already exists"
+            }
+            this.setState({signupError: error})
+        })
+    }
     render(){
         return(
             <div className="container-fluid">
@@ -187,16 +211,17 @@ class LandingPage extends Component{
                             </div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-                            <form onSubmit={(event)=>(event.preventDefault())}>
+                            {this.props.loginError!==false?<Alert class="alert-danger">{this.props.loginError}</Alert>:null}
+                            <form onSubmit={(event)=>this.props.login(event,this.props,this.state.loginFields)}>
                                 <Input id="email" type="email" validityHandler={this.loginValidityHandler} error={this.state.loginFields.email.error}>Enter Email</Input>
                                 <Input id="password" type="password" validityHandler={this.loginValidityHandler} error={this.state.loginFields.password.error}>Enter Password</Input>
-                                <Button clicked={()=>this.props.login(this.props)} disabled={this.state.loginButtonDisabled} class="btn-success">Login</Button>
+                                <Button type="submit" disabled={this.state.loginButtonDisabled} class="btn-success">Login</Button>
                             </form>
                             <p style={{marginTop: '10px'}}>Not a member? <SpanLink clicked={this.showSignupModalHandler}>Sign up</SpanLink></p>
                         </div>
                     </div>
                 </div>
-                <Signup disabled={this.state.signupButtonDisabled} validityHandler={this.signupValidityHandler} show={this.state.showSignupModal} errors={this.state.signupFields} hide={this.hideSignupModalHandler}/>
+                <Signup signupError={this.state.signupError} handler={this.signupHandler} disabled={this.state.signupButtonDisabled} validityHandler={this.signupValidityHandler} show={this.state.showSignupModal} errors={this.state.signupFields} hide={this.hideSignupModalHandler}/>
             </div>
         )
     }

@@ -15,17 +15,26 @@
     border: 1px solid rgb(233, 233, 233);
     box-sizing: border-box;
     margin-bottom: 5px;
-    max-height: 70%;
+    max-height: 50%;
     overflow: auto;
 }
-.OrderItem{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    line-height: 100%;
+.EmptyCart{
+    width: 80%;
+    margin: auto;
+    padding: 30px;
 }
-@media(max-width: 850px){
+.EmptyCart img{
+    width: 100%;
+}
 
+@media(max-width: 850px){
+    .EmptyCart{
+        width: 15%;
+        margin: auto;
+        margin-top: -10px;
+        margin-bottom: 5px;
+        padding: 0px;
+    }
     .OrderSummary{
         border-top: 2px solid rgb(233, 233, 233);
         position: fixed;
@@ -37,7 +46,7 @@
         transform: translateY(-40vh)
     }
     .OrderItems{
-         max-height: 40%;
+         max-height: 30%;
         overflow: auto;
     }
 }

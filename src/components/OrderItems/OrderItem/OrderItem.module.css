@@ -1,0 +1,9 @@
+.OrderItem{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    line-height: 100%;
+}
+.OrderItem i{
+    cursor: pointer;
+}
