@@ -4,7 +4,7 @@ const alert=(props)=>{
     const assignedClasses = ["alert", props.class]
     return(
         <div className={assignedClasses.join(" ")}>
-            {props.children}
+            {props.children} 
         </div>
   )
 }

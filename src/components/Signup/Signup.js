@@ -6,6 +6,7 @@ import Button from '../UI/Button/Button'
 import Backdrop from '../UI/Backdrop/Backdrop'
 import Alert from '../../components/UI/Alert/Alert'
 import Aux from '../../hoc/Wrap/Wrap'
+import Spinner from '../UI/Spinner/Spinner'
 
 const signup = (props) =>{
     return(
@@ -25,6 +26,7 @@ const signup = (props) =>{
                         <Button type='submit' disabled={props.disabled} class="btn-dark">Signup</Button>
                     </form>
                 </div>
+                {props.spinner?<Spinner margin="35% auto"/>:null}
             </Modal>
         </Aux>
     )

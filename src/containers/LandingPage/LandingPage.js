@@ -7,6 +7,7 @@ import SpanLink from '../../components/UI/SpanLink/SpanLink'
 import Signup from '../../components/Signup/Signup'
 import axios from 'axios'
 import Alert from '../../components/UI/Alert/Alert'
+import Spinner from '../../components/UI/Spinner/Spinner'
 import {withRouter} from 'react-router-dom'
 
 class LandingPage extends Component{
@@ -66,7 +67,8 @@ class LandingPage extends Component{
             }
         },
         signupButtonDisabled: true,
-        signupError: false
+        signupError: false,
+        spinner:false
     }
     loginValidityHandler=(id, event)=>{
         const value = event.target.value;
@@ -186,18 +188,20 @@ class LandingPage extends Component{
             password: this.state.signupFields.password.value,
             name: this.state.signupFields.name.value
         }
+        this.setState({spinner:true})
         axios.post("https://6xiyxvrwqg.execute-api.us-east-1.amazonaws.com/join",data)
         .then(res=>{
-            this.setState({signupError: false},()=>{
+            this.setState({signupError: false,spinner:false},()=>{
                 this.props.history.replace('/home')
             })
         })
         .catch(err=>{
             let error="Something went wrong"
+            console.log(err.response)
             if(err.response.status==409){
                 error="User already exists"
             }
-            this.setState({signupError: error})
+            this.setState({signupError: error, spinner:false})
         })
     }
     render(){
@@ -219,9 +223,10 @@ class LandingPage extends Component{
                             </form>
                             <p style={{marginTop: '10px'}}>Not a member? <SpanLink clicked={this.showSignupModalHandler}>Sign up</SpanLink></p>
                         </div>
+                        {this.props.spinner?<Spinner margin="50% auto"/>:null}
                     </div>
                 </div>
-                <Signup signupError={this.state.signupError} handler={this.signupHandler} disabled={this.state.signupButtonDisabled} validityHandler={this.signupValidityHandler} show={this.state.showSignupModal} errors={this.state.signupFields} hide={this.hideSignupModalHandler}/>
+                <Signup spinner={this.state.spinner} signupError={this.state.signupError} handler={this.signupHandler} disabled={this.state.signupButtonDisabled} validityHandler={this.signupValidityHandler} show={this.state.showSignupModal} errors={this.state.signupFields} hide={this.hideSignupModalHandler}/>
             </div>
         )
     }

@@ -5,6 +5,8 @@ import Backdrop from '../UI/Backdrop/Backdrop'
 import classes from './MorningBeverage.module.css';
 import MorningBeverage from '../../assets/images/morning-beverage.png'
 import Button from '../UI/Button/Button'
+import Spinner from '../../components/UI/Spinner/Spinner'
+
 
 const morningBeverage=(props)=>{
     return(
@@ -19,15 +21,18 @@ const morningBeverage=(props)=>{
                         <div className={classes.Icon}>
                             <img src={MorningBeverage} alt="Morning Beverage"/>   
                         </div>
-                        <select>
+                        <select onChange={(event)=>props.handler(event)} value={props.value}>
                             <option disabled selected>Select</option>
-                            <option>Tea</option>
-                            <option>Coffee</option>
+                            <option value="4">Coffee</option>
+                            <option value="3">Tea</option>
+                            <option value="7">Iced Tea</option>
+                            <option value="8">Green Tea</option>
                         </select>
                         <div style={{width:'80%', margin:'auto'}}>
-                            <Button class="btn-primary">Set Preference</Button>
+                            {/* <Button class="btn-primary">Set Preference</Button> */}
                         </div>
                 </div>
+                {props.spinner?<Spinner margin="30% auto"/>:null}
             </Modal>
         </Aux>
     )

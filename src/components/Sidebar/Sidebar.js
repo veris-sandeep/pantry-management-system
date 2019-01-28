@@ -5,6 +5,7 @@ import SidebarLink from '../UI/SidebarLink/SidebarLink'
 import HomeIcon from '../../assets/images/home-icon.png'
 import OrderIcon from '../../assets/images/order-icon.png'
 import PendingOrderIcon from '../../assets/images/pending-orders-icon.png'
+import {NavLink,withRouter} from 'react-router-dom'
 
 const sidebar=(props)=>{
     return(
@@ -16,12 +17,12 @@ const sidebar=(props)=>{
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
             </div>
             <ul>
-                <SidebarLink icon={HomeIcon}>Home</SidebarLink>
-                <SidebarLink icon={OrderIcon}>Order</SidebarLink>
-                <SidebarLink icon={PendingOrderIcon}>Pending Orders</SidebarLink>
+                <NavLink to='/home' exact activeClassName={classes.active}><SidebarLink icon={HomeIcon}>Home</SidebarLink></NavLink>
+                <NavLink to='/order' exact activeClassName={classes.active}><SidebarLink icon={OrderIcon}>Order</SidebarLink></NavLink>
+                <NavLink to='/' exact activeClassName={classes.active}><SidebarLink icon={PendingOrderIcon}>Pending Orders</SidebarLink></NavLink>
             </ul>
         </div>
     )
 }
 
-export default sidebar;
+export default withRouter(sidebar);

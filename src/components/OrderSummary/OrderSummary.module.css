@@ -15,7 +15,7 @@
     border: 1px solid rgb(233, 233, 233);
     box-sizing: border-box;
     margin-bottom: 5px;
-    max-height: 50%;
+    max-height: 38%;
     overflow: auto;
 }
 .EmptyCart{
@@ -29,7 +29,7 @@
 
 @media(max-width: 850px){
     .EmptyCart{
-        width: 15%;
+        width: 8%;
         margin: auto;
         margin-top: -10px;
         margin-bottom: 5px;
@@ -38,15 +38,15 @@
     .OrderSummary{
         border-top: 2px solid rgb(233, 233, 233);
         position: fixed;
-        height: 40vh;
+        height: 41vh;
         width: 100%;
         bottom: 0px;
         left: 0px;
         top: 100vh;
-        transform: translateY(-40vh)
+        transform: translateY(-41vh);
     }
     .OrderItems{
-         max-height: 30%;
+         max-height: 21%;
         overflow: auto;
     }
 }

@@ -4,7 +4,7 @@ import Item from './Item/Item'
 const items=(props)=>{
     return(
         props.items.map(item=>{
-            return (<Item add={()=>props.add(item.id)}>{item.name}</Item>)
+            return (<Item add={()=>props.add(item.item_id)}>{item.item_name}</Item>)
         })
             
     )
