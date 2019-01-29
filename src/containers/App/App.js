@@ -18,11 +18,9 @@ class App extends Component {
       email: fields.email.value,
       password: fields.password.value
     }
-    const headers={
-      headers:{"Access-Control-Allow-Origin":"*"}
-    }
+
     this.setState({spinner: true})
-    axios.post("https://awkn0po82h.execute-api.us-east-1.amazonaws.com/authenticate",data,headers)
+    axios.post("https://awkn0po82h.execute-api.us-east-1.amazonaws.com/authenticate",data)
     .then(res=>{
       console.log(res)
       this.setState({ authenticated:true, loginError:false,user_id:res.data.user_id,spinner:false},()=>{

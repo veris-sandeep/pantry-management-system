@@ -5,8 +5,15 @@ import Backdrop from '../UI/Backdrop/Backdrop'
 import classes from './LunchSlot.module.css';
 import LunchSlot from '../../assets/images/lunch-slot.jpg'
 import Button from '../UI/Button/Button'
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 const lunchSlot=(props)=>{
+    let slots = props.slots;
+    let value = props.value
+    let i=0
+    let options = slots.map(slot=>{
+        return <option disabled={(slot.qty==0 || i===value)?true:false} value={i++}>{slot.time}</option>
+    })
     return(
         <Aux>
             <Backdrop show={props.show} hide={props.hide}/>
@@ -19,15 +26,15 @@ const lunchSlot=(props)=>{
                         <div className={classes.Icon}>
                             <img src={LunchSlot} alt="Morning Beverage"/>   
                         </div>
-                        <select>
-                            <option disabled selected>Select</option>
-                            <option>1:30</option>
-                            <option>2:30</option>
+                        <select value={value!==false?value:null} onChange={value!==false?(event)=>props.update(event):(event)=>props.book(event)}>
+                            <option disabled selected>Select Time</option>
+                            {options}
                         </select>
                         <div style={{width:'80%', margin:'auto'}}>
-                            <Button class="btn-primary">Set Preference</Button>
+                            {/* <Button class="btn-primary">Set Preference</Button> */}
                         </div>
                 </div>
+                {props.spinner?<Spinner margin="30% auto"/>:null}
             </Modal>
         </Aux>
     )

@@ -21,7 +21,15 @@ class Homepage extends Component{
         eveningBeverageLabel:"Coffee",
         eveningSpinner: false,
         morningSpinner: false,
-        spinner: true
+        lunchSpinner:false,
+        spinner: true,
+        lunchSlots: [
+            {time: "1:30 - 2:00", qty:1},
+            {time: "2:00 - 2:30", qty:1},
+            {time: "2:30 - 3:00", qty:1},
+            {time: "3:00 - 3:30", qty:1},
+        ],
+        slotSelected:false
     }
     componentDidMount(){
         const url="https://h3sp46qcq0.execute-api.us-east-1.amazonaws.com/beverage?user_id="+this.props.user_id
@@ -45,8 +53,15 @@ class Homepage extends Component{
                 morningBeverage:res.data[0].morning,
                 eveningBeverage:res.data[0].evening,
                 morningBeverageLabel: morningLabel,
-                eveningBeverageLabel:eveningLabel,
-                spinner: false
+                eveningBeverageLabel:eveningLabel,   
+            })
+            axios.get("https://4np5t34b52.execute-api.us-east-1.amazonaws.com/slots?user_id="+this.props.user_id)
+            .then(res=>{
+                this.setState({
+                    lunchSlots: res.data.lunchSlots,
+                    slotSelected: res.data.selected,
+                    spinner: false
+                })
             })
         })
         .catch(err=>{
@@ -58,6 +73,61 @@ class Homepage extends Component{
                 })
             }
         })
+    }
+    lunchClickHandler=(event)=>{
+        this.setState({lunchSpinner: true})
+        axios.get("https://4np5t34b52.execute-api.us-east-1.amazonaws.com/slots?user_id="+this.props.user_id)
+            .then(res=>{
+                this.setState({
+                    lunchSlots: res.data.lunchSlots,
+                    lunchSpinner: false
+                })
+            })
+    }
+
+    bookLunchSlotHandler=(event)=>{
+        const data={
+            slot_id: event.target.value,
+            user_id: this.props.user_id
+        }
+        console.log("Book",data)
+        this.setState({lunchSpinner:true,slotSelected: event.target.value})
+        axios.post("https://4np5t34b52.execute-api.us-east-1.amazonaws.com/slots",data)
+        .then(res=>{
+            this.setState({
+                lunchSpinner: false,
+                showLunchSlot:false
+            })
+         })
+         .catch(err=>{
+            this.setState({
+                lunchSpinner: false,
+                showLunchSlot:false
+            })
+         })
+        
+    }
+    updateLunchSlotHandler=(event)=>{
+        const data={
+            slot_id: event.target.value,
+            user_id: this.props.user_id
+        }
+        console.log("update",data)
+        this.setState({lunchSpinner:true,slotSelected: event.target.value})
+        axios.patch("https://4np5t34b52.execute-api.us-east-1.amazonaws.com/slots",data)
+        .then(res=>{
+            this.setState({
+                lunchSpinner: false,
+                showLunchSlot:false
+            })
+         })
+         .catch(err=>{
+             console.log(err.response)
+            this.setState({
+                lunchSpinner: false,
+                showLunchSlot:false
+            })
+         })
     }
     showMorningBeverageHandler=()=>{
         this.setState({showMorningBeverage: true})
@@ -73,6 +143,7 @@ class Homepage extends Component{
     }
     showLunchSlotHandler=()=>{
         this.setState({showLunchSlot: true})
+        this.lunchClickHandler()
     }
     hideLunchSlotHandler=()=>{
         this.setState({showLunchSlot: false})
@@ -131,10 +202,10 @@ class Homepage extends Component{
             <Layout>
                 <div className={classes.Card}>
                     <div className={classes.Icon}><img src={HomeIcon} alt="Home"/></div>
-                    <div className={classes.Content}>You will be served <SpanLink clicked={this.showMorningBeverageHandler}>{this.state.morningBeverageLabel}</SpanLink> in the Morning, Lunch  at <SpanLink clicked={this.showLunchSlotHandler}>1:30</SpanLink> and <SpanLink clicked={this.showEveningBeverageHandler}>{this.state.eveningBeverageLabel}</SpanLink>  in the evening</div>
+                    <div className={classes.Content}>You will be served <SpanLink clicked={this.showMorningBeverageHandler}>{this.state.morningBeverageLabel}</SpanLink> in the Morning, Lunch  at <SpanLink clicked={this.showLunchSlotHandler}>{this.state.slotSelected!==false?this.state.lunchSlots[this.state.slotSelected].time:"Select"}</SpanLink> and <SpanLink clicked={this.showEveningBeverageHandler}>{this.state.eveningBeverageLabel}</SpanLink>  in the evening</div>
                     {this.state.spinner?<Spinner margin="15% auto"/>:null}
                 </div>
-                <LunchSlot show={this.state.showLunchSlot} hide={this.hideLunchSlotHandler}/>
+                <LunchSlot spinner={this.state.lunchSpinner} click={this.lunchClickHandler} book={this.bookLunchSlotHandler} update={this.updateLunchSlotHandler} value={this.state.slotSelected} slots={this.state.lunchSlots} show={this.state.showLunchSlot} hide={this.hideLunchSlotHandler}/>
                 <EveningBeverage spinner={this.state.eveningSpinner} handler={this.eveningBeverageHandler} value={this.state.eveningBeverage} show={this.state.showEveningBeverage} hide={this.hideEveningBeverageHandler}/>
                 <MorningBeverage spinner={this.state.morningSpinner} handler={this.morningBeverageHandler} value={this.state.morningBeverage} show={this.state.showMorningBeverage} hide={this.hideMorningBeverageHandler}/>
              </Layout>
