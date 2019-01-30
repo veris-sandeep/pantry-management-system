@@ -1,0 +1,25 @@
+.Order{
+    width:200px;
+    padding: 20px;
+    margin: 10px;
+    background-color: white;
+}
+.Order h6{
+    text-align: center;
+}
+.Icon{
+    width: 50%;
+    margin: auto;
+}
+.Icon img{
+    width: 100%;
+}
+@media(max-width:590px){
+    .Order{
+        width: 80%;
+        margin: 10px auto;
+    }
+    .Icon{
+        width: 20%;
+    }
+}

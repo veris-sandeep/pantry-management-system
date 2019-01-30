@@ -19,7 +19,7 @@ const sidebar=(props)=>{
             <ul>
                 <NavLink to='/home' exact activeClassName={classes.active}><SidebarLink icon={HomeIcon}>Home</SidebarLink></NavLink>
                 <NavLink to='/order' exact activeClassName={classes.active}><SidebarLink icon={OrderIcon}>Order</SidebarLink></NavLink>
-                <NavLink to='/' exact activeClassName={classes.active}><SidebarLink icon={PendingOrderIcon}>Pending Orders</SidebarLink></NavLink>
+                <NavLink to='/pending_orders' exact activeClassName={classes.active}><SidebarLink icon={PendingOrderIcon}>Pending Orders</SidebarLink></NavLink>
             </ul>
         </div>
     )

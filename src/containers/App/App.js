@@ -3,6 +3,7 @@ import LandingPage from '../LandingPage/LandingPage'
 import Homepage from '../../containers/Homepage/Homepage'
 import {Route, Redirect,Switch} from 'react-router-dom'
 import OrderPage from '../OrderPage/OrderPage'
+import OrderPending from '../../components/OrderPending/OrderPending'
 import axios from 'axios'
 
 class App extends Component {
@@ -38,6 +39,7 @@ class App extends Component {
            <Route path="/" exact render={()=><LandingPage loginError={this.state.loginError} spinner={this.state.spinner} login={this.loginHandler} />}/>
            {this.state.authenticated ? <Route path="/home" render={()=><Homepage user_id={this.state.user_id}/>} /> : <Redirect to="/"/>}    
           {this.state.authenticated ? <Route path="/order" render={()=><OrderPage user_id={this.state.user_id} />} /> : <Redirect to="/"/>}    
+          {this.state.authenticated ? <Route path="/pending_orders" render={()=><OrderPending user_id={this.state.user_id} />} /> : <Redirect to="/"/>}    
         </Switch>
     );
   }

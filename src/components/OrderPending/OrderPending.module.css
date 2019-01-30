@@ -1,0 +1,12 @@
+.OrderPending{
+    display: flex;
+    margin-left: 310px;
+    flex-wrap: wrap;
+    padding-top: 70px;
+}
+@media(max-width:1200px){
+    .OrderPending{
+        width: 80%;
+        margin: auto;
+    }
+}

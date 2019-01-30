@@ -4,6 +4,7 @@ import Items from '../../components/Items/Items'
 import classes from './OrderPage.module.css';
 import OrderSummary from '../../components/OrderSummary/OrderSummary'
 import Spinner from '../../components/UI/Spinner/Spinner'
+import {withRouter} from 'react-router-dom'
 import axios from 'axios'
 
 
@@ -37,20 +38,20 @@ class OrderPage extends Component{
         this.setState({orderSpinner: true})
         axios.post("https://gthxv5x713.execute-api.us-east-1.amazonaws.com/orders",data)
         .then(res=>{
-            axios.get("https://2kyff8ynsi.execute-api.us-east-1.amazonaws.com/inventory")
-            .then(res=>{
-                let inventory = res.data.filter(item=>{
-                    return item.qty>0
-                })
-                this.setState({
-                    inventory:inventory,
-                    alert: false,
-                    orderItems:[],
-                    status: true,
-                    orderSpinner: false
-                })
-            })
-            
+            // axios.get("https://2kyff8ynsi.execute-api.us-east-1.amazonaws.com/inventory")
+            // .then(res=>{
+            //     let inventory = res.data.filter(item=>{
+            //         return item.qty>0
+            //     })
+            //     this.setState({
+            //         inventory:inventory,
+            //         alert: false,
+            //         orderItems:[],
+            //         status: true,
+            //         orderSpinner: false
+            //     })
+            // })
+            this.props.history.replace("/pending_orders")
         })
         .catch(err=>{
             if(err.response.status===400){
@@ -130,4 +131,4 @@ class OrderPage extends Component{
     }
 }
 
-export default OrderPage;
+export default withRouter(OrderPage);
